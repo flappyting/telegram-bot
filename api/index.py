@@ -1,5 +1,3 @@
-# /api/index.py
-
 import os
 from aiohttp import web
 from aiogram import Bot, Dispatcher, types
@@ -24,11 +22,6 @@ async def handle(request):
 app = web.Application()
 app.router.add_post("/", handle)
 
-# Wichtig: Vercel sucht nach einer async-Methode namens `app`
-async def handler(request):
-    return await app._handle(request)
-
-# export
-# (damit Vercel weiß, welche Funktion zu verwenden ist)
-__all__ = ["handler"]
+# ✅ Vercel erwartet genau das:
+handler = app
 
